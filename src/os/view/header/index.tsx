@@ -6,17 +6,9 @@ import IonIcon from 'shared/antd/ionicon'
 import Wallet from 'os/view/header/wallet'
 import Brand from 'os/components/brand'
 import ActionCenter from '../actionCenter'
-import ContextMenu from './contextMenu'
 
-import {
-  useRootDispatch,
-  useRootSelector,
-  RootDispatch,
-  RootState,
-} from 'os/store'
-import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
+import { useRootSelector, RootState } from 'os/store'
 import { net } from 'shared/runtime'
-import { Fragment } from 'react'
 
 type NavButtonProps = {
   id: string
@@ -40,29 +32,11 @@ const NavButton = ({ id, iconName, title, onClick }: NavButtonProps) => {
 }
 
 const Header = () => {
-  const dispatch = useRootDispatch<RootDispatch>()
   const history = useHistory()
   const {
     wallet: { address: walletAddress },
     ui: { width, theme },
-    walkthrough: { run, step },
   } = useRootSelector((state: RootState) => state)
-
-  const onDashboard = async () => {
-    if (run && step === 3)
-      await dispatch(
-        setWalkthrough({ type: WalkThroughType.NewComer, step: 4 }),
-      )
-    return history.push('/dashboard')
-  }
-
-  const onStore = async () => {
-    if (run && step === 0)
-      await dispatch(
-        setWalkthrough({ type: WalkThroughType.NewComer, step: 1 }),
-      )
-    return history.push('/store')
-  }
 
   return (
     <Row gutter={[12, 12]} align="middle" wrap={false}>
@@ -104,16 +78,10 @@ const Header = () => {
             <NavButton
               id="dashboard-nav-button"
               iconName="grid-outline"
-              onClick={onDashboard}
+              onClick={() => history.push('/dashboard')}
               title="Dashboard"
             />
           )}
-          <NavButton
-            id="store-nav-button"
-            iconName="bag-handle-outline"
-            onClick={onStore}
-            title="Store"
-          />
           {!account.isAddress(walletAddress) ? <Wallet /> : <ActionCenter />}
         </Space>
       </Col>

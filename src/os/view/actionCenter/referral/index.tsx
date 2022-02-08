@@ -9,14 +9,8 @@ import YourReferral from './yourReferral'
 import ConfirmSuccess from './confirmSuccess'
 
 import configs from 'os/configs'
-import {
-  RootDispatch,
-  RootState,
-  useRootDispatch,
-  useRootSelector,
-} from 'os/store'
+import { RootState, useRootSelector } from 'os/store'
 import { getReferrer, setReferrer } from 'os/helpers/utils'
-import { setWalkthrough } from 'os/store/walkthrough.reducer'
 
 const {
   referral: { base },
@@ -28,7 +22,6 @@ const Referral = () => {
     wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
   const [referrerAddress, setReferrerAddress] = useState('')
-  const dispatch = useRootDispatch<RootDispatch>()
 
   const loadReferrerAddress = useCallback(async () => {
     if (!account.isAddress(walletAddress)) return setReferrerAddress('')
@@ -41,7 +34,6 @@ const Referral = () => {
 
   const onConfirm = useCallback(
     async (link) => {
-      await dispatch(setWalkthrough({ run: false }))
       try {
         if (!link.startsWith(base)) throw new Error('Broken invitation link')
         const params = new URLSearchParams(new URL(link).search)
@@ -53,7 +45,7 @@ const Referral = () => {
         return window.notify({ type: 'warning', description: er.message })
       }
     },
-    [dispatch, walletAddress, loadReferrerAddress],
+    [walletAddress, loadReferrerAddress],
   )
 
   useEffect(() => {

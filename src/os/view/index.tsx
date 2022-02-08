@@ -8,13 +8,9 @@ import Header from 'os/view/header'
 import Welcome from 'os/view/welcome'
 import Dashboard from 'os/view/dashboard'
 import Page from 'os/view/page'
-import Market from 'os/view/market'
-import AppViewer from 'os/view/market/appViewer'
 import Sync from 'os/view/sync'
 
 import Watcher from 'os/view/watcher'
-import Walkthrough from 'os/view/walkthrough'
-import Installer from 'os/view/installer'
 import ReferralLogger from './actionCenter/referral/logger'
 
 import {
@@ -94,8 +90,6 @@ const View = () => {
                 component={Dashboard}
               />
               <PrivateRoute exact path="/app/:appId" component={Page} />
-              <Route exact path="/store" component={Market} />
-              <Route exact path="/store/:appId" component={AppViewer} />
               <PrivateRoute exact path="/sync" component={Sync} />
               <Redirect from="*" to="/welcome" />
             </Switch>
@@ -103,9 +97,7 @@ const View = () => {
         </Row>
       </Layout>
       {/* In-Background Run Jobs */}
-      <Walkthrough />
       <Watcher />
-      <Installer />
       <ReferralLogger />
     </Layout>
   )
