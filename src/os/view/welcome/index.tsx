@@ -23,7 +23,9 @@ const Welcome = () => {
       location: { search },
     } = history
     const params = new URLSearchParams(search)
-    const redirect = decodeURIComponent(params.get('redirect') || '/dashboard')
+    const redirect = decodeURIComponent(
+      params.get('redirect') || '/app/sen_swap',
+    )
     if (account.isAddress(walletAddress)) history.push(redirect)
   }, [walletAddress, history])
 
