@@ -10,7 +10,6 @@ import { RootContext } from '@senhub/context'
 import { devTools, bigintSerializationMiddleware } from 'shared/devTools'
 
 import ui from './ui.reducer'
-import flags from './flags.reducer'
 import page from './page.reducer'
 import wallet from './wallet.reducer'
 import accounts from './accounts.reducer'
@@ -42,7 +41,6 @@ const store = configureStore({
   devTools: devTools('sentre'),
   reducer: {
     ui,
-    flags,
     page,
     wallet,
     accounts,

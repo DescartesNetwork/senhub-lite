@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
-import { Tooltip, Space, Typography, Popover } from 'antd'
+import { Row, Col, Tooltip, Typography, Popover } from 'antd'
 import QRCode from 'qrcode.react'
 import CopyToClipboard from 'react-copy-to-clipboard'
+import IonIcon from 'shared/antd/ionicon'
 
 import { useRootSelector, RootState } from 'os/store'
-import { explorer, shortenAddress } from 'shared/util'
-import IconButton from './iconButton'
+import { shortenAddress } from 'shared/util'
 
 const QR = ({ address }: { address: string }) => {
   return (
@@ -25,12 +25,12 @@ const QR = ({ address }: { address: string }) => {
       trigger="click"
       arrowPointAtCenter
     >
-      <IconButton name="qr-code-outline" />
+      <IonIcon name="qr-code-outline" style={{ cursor: 'pointer' }} />
     </Popover>
   )
 }
 
-const Address = () => {
+const WalletInfo = () => {
   const { address } = useRootSelector((state: RootState) => state.wallet)
   const [copied, setCopied] = useState(false)
 
@@ -42,21 +42,22 @@ const Address = () => {
   }
 
   return (
-    <Space size={10}>
-      <Typography.Text
-        style={{ color: '#E9E9EB', cursor: 'pointer' }}
-        onClick={() => window.open(explorer(address), '_blank')}
-      >
-        {shortenAddress(address, 3, '...')}
-      </Typography.Text>
-      <Tooltip title="Copied" visible={copied}>
-        <CopyToClipboard text={address} onCopy={onCopy}>
-          <IconButton name="copy-outline" onClick={onCopy} />
-        </CopyToClipboard>
-      </Tooltip>
-      <QR address={address} />
-    </Space>
+    <Row gutter={[12, 12]} align="middle">
+      <Col flex="auto">
+        <Typography.Text>{shortenAddress(address, 6, '...')}</Typography.Text>
+      </Col>
+      <Col>
+        <Tooltip title="Copied" visible={copied}>
+          <CopyToClipboard text={address} onCopy={onCopy}>
+            <IonIcon name="copy-outline" style={{ cursor: 'pointer' }} />
+          </CopyToClipboard>
+        </Tooltip>
+      </Col>
+      <Col>
+        <QR address={address} />
+      </Col>
+    </Row>
   )
 }
 
-export default Address
+export default WalletInfo

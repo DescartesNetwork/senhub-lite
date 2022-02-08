@@ -1,82 +1,48 @@
-import { Fragment, useCallback } from 'react'
-
-import { Row, Col, Drawer, Button, Tabs } from 'antd'
+import { Row, Col, Button, Space, Popover, Typography, Divider } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
-import Applications from './applications'
-import Settings from './settings'
+import Wallet from 'os/view/header/wallet'
+import WalletInfo from './walletInfo'
+import Network from './network'
 
-import {
-  useRootDispatch,
-  useRootSelector,
-  RootDispatch,
-  RootState,
-} from 'os/store'
-import { setVisibleActionCenter } from 'os/store/ui.reducer'
+import { useRootSelector, RootState } from 'os/store'
+import { shortenAddress } from 'shared/util'
+import Theme from './theme'
 
 const ActionCenter = () => {
-  const dispatch = useRootDispatch<RootDispatch>()
   const {
-    ui: { visibleActionCenter },
+    wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
 
-  const onActionCenter = useCallback(async () => {
-    return dispatch(setVisibleActionCenter(true))
-  }, [dispatch])
-
   return (
-    <Fragment>
-      <Button
-        type="text"
-        icon={<IonIcon name="menu" style={{ fontSize: 20 }} />}
-        onClick={onActionCenter}
-      />
-      <Drawer
-        visible={visibleActionCenter}
-        onClose={() => dispatch(setVisibleActionCenter(false))}
-        closable={false}
-        contentWrapperStyle={{ width: '95%', maxWidth: 400 }}
-        destroyOnClose
+    <Space>
+      <Theme />
+      <Popover
+        trigger="click"
+        content={
+          <Row gutter={[16, 16]} style={{ maxWidth: 256 }}>
+            <Col span={24}>
+              <WalletInfo />
+            </Col>
+            <Col span={24}>
+              <Divider style={{ margin: 0 }} />
+            </Col>
+            <Col span={24}>
+              <Network />
+            </Col>
+            <Col span={24}>
+              <Wallet />
+            </Col>
+          </Row>
+        }
       >
-        <Row gutter={[16, 16]} style={{ marginTop: -16 }}>
-          <Col span={24}>
-            <Tabs
-              style={{ overflow: 'visible' }}
-              tabBarExtraContent={
-                <Button
-                  type="text"
-                  icon={<IonIcon name="close" />}
-                  onClick={() => dispatch(setVisibleActionCenter(false))}
-                />
-              }
-              destroyInactiveTabPane
-            >
-              <Tabs.TabPane
-                tab={
-                  <span>
-                    <IonIcon name="grid-outline" />
-                    Apps
-                  </span>
-                }
-                key="applications"
-              >
-                <Applications />
-              </Tabs.TabPane>
-              <Tabs.TabPane
-                tab={
-                  <span>
-                    <IonIcon name="settings-outline" />
-                    Settings
-                  </span>
-                }
-                key="system-settings"
-              >
-                <Settings />
-              </Tabs.TabPane>
-            </Tabs>
-          </Col>
-        </Row>
-      </Drawer>
-    </Fragment>
+        <Button type="text">
+          <Typography.Text>
+            {shortenAddress(walletAddress, 3, '...')}
+          </Typography.Text>
+          <IonIcon name="chevron-down-outline" />
+        </Button>
+      </Popover>
+    </Space>
   )
 }
 

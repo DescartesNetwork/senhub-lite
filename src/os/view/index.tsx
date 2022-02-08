@@ -1,12 +1,10 @@
 import { useCallback, useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { account } from '@senswap/sen-js'
 
 import { Layout, Row, Col, Card, Affix } from 'antd'
 import PrivateRoute from 'os/components/privateRoute'
 import Header from 'os/view/header'
 import Welcome from 'os/view/welcome'
-import Dashboard from 'os/view/dashboard'
 import Page from 'os/view/page'
 import Sync from 'os/view/sync'
 
@@ -18,16 +16,13 @@ import {
   useRootDispatch,
   RootDispatch,
 } from 'os/store'
-import { loadPage, loadRegister } from 'os/store/page.reducer'
-import { loadReferred, loadVisited } from 'os/store/flags.reducer'
+import { loadRegister } from 'os/store/page.reducer'
 import 'os/static/styles/dark.os.less'
 import 'os/static/styles/light.os.less'
 
 const View = () => {
   const {
     ui: { theme },
-    wallet: { address: walletAddress },
-    page: { register },
   } = useRootSelector((state: RootState) => state)
   const dispatch = useRootDispatch<RootDispatch>()
 
@@ -42,24 +37,6 @@ const View = () => {
   useEffect(() => {
     initRegister()
   }, [initRegister])
-  // Load page
-  const initPage = useCallback(async () => {
-    if (!account.isAddress(walletAddress) || !Object.keys(register).length)
-      return
-    await dispatch(loadPage())
-  }, [dispatch, walletAddress, register])
-  useEffect(() => {
-    initPage()
-  }, [initPage])
-  // Load flags
-  const initFlags = useCallback(async () => {
-    if (!account.isAddress(walletAddress)) return
-    await dispatch(loadVisited())
-    await dispatch(loadReferred())
-  }, [dispatch, walletAddress])
-  useEffect(() => {
-    initFlags()
-  }, [initFlags])
   // Load theme
   useEffect(() => {
     document.body.setAttribute('id', theme)
@@ -83,11 +60,6 @@ const View = () => {
           <Col span={24}>
             <Switch>
               <Route exact path="/welcome" component={Welcome} />
-              <PrivateRoute
-                exact
-                path="/dashboard/:pageId?"
-                component={Dashboard}
-              />
               <PrivateRoute exact path="/app/:appId" component={Page} />
               <PrivateRoute exact path="/sync" component={Sync} />
               <Redirect from="*" to="/welcome" />
