@@ -6,7 +6,6 @@ import PrivateRoute from 'os/components/privateRoute'
 import Header from 'os/view/header'
 import Welcome from 'os/view/welcome'
 import Page from 'os/view/page'
-import Sync from 'os/view/sync'
 
 import Watcher from 'os/view/watcher'
 
@@ -61,7 +60,6 @@ const View = () => {
             <Switch>
               <Route exact path="/welcome" component={Welcome} />
               <PrivateRoute exact path="/app/:appId" component={Page} />
-              <PrivateRoute exact path="/sync" component={Sync} />
               <Redirect from="*" to="/welcome" />
             </Switch>
           </Col>

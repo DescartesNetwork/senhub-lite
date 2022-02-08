@@ -1,15 +1,8 @@
 import logoSwap from 'os/static/images/logo-senswap.svg'
-import logoAssets from 'os/static/images/logo-assets.svg'
 import logoLp from 'os/static/images/logo-senlp.svg'
 import logoFarming from 'os/static/images/logo-farming.svg'
 
 export const DataSlide = [
-  {
-    logo: logoAssets,
-    title: 'Sen Assets',
-    content:
-      'Manage your assets with ease. Transfer tokens from and to your wallet, track your transactions, wrap and unwrap SOL, close unused SPLT account - All in one place.',
-  },
   {
     logo: logoFarming,
     title: 'Sen Farming',
