@@ -11,7 +11,6 @@ import Page from 'os/view/page'
 import Sync from 'os/view/sync'
 
 import Watcher from 'os/view/watcher'
-import ReferralLogger from './actionCenter/referral/logger'
 
 import {
   useRootSelector,
@@ -98,7 +97,6 @@ const View = () => {
       </Layout>
       {/* In-Background Run Jobs */}
       <Watcher />
-      <ReferralLogger />
     </Layout>
   )
 }

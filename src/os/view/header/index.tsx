@@ -73,17 +73,7 @@ const Header = () => {
         )}
       </Col>
       <Col>
-        <Space align="center">
-          {account.isAddress(walletAddress) && (
-            <NavButton
-              id="dashboard-nav-button"
-              iconName="grid-outline"
-              onClick={() => history.push('/dashboard')}
-              title="Dashboard"
-            />
-          )}
-          {!account.isAddress(walletAddress) ? <Wallet /> : <ActionCenter />}
-        </Space>
+        {!account.isAddress(walletAddress) ? <Wallet /> : <ActionCenter />}
       </Col>
     </Row>
   )

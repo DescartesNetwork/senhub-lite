@@ -1,10 +1,9 @@
-import { Fragment } from 'react'
+import { Fragment, useCallback } from 'react'
 
 import { Row, Col, Drawer, Button, Tabs } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 import Applications from './applications'
 import Settings from './settings'
-import Referral from './referral'
 
 import {
   useRootDispatch,
@@ -20,11 +19,16 @@ const ActionCenter = () => {
     ui: { visibleActionCenter },
   } = useRootSelector((state: RootState) => state)
 
+  const onActionCenter = useCallback(async () => {
+    return dispatch(setVisibleActionCenter(true))
+  }, [dispatch])
+
   return (
     <Fragment>
       <Button
         type="text"
         icon={<IonIcon name="menu" style={{ fontSize: 20 }} />}
+        onClick={onActionCenter}
       />
       <Drawer
         visible={visibleActionCenter}
@@ -56,17 +60,6 @@ const ActionCenter = () => {
                 key="applications"
               >
                 <Applications />
-              </Tabs.TabPane>
-              <Tabs.TabPane
-                tab={
-                  <span>
-                    <IonIcon name="person-outline" />
-                    User
-                  </span>
-                }
-                key="referral"
-              >
-                <Referral />
               </Tabs.TabPane>
               <Tabs.TabPane
                 tab={
