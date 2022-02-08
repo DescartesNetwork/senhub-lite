@@ -16,6 +16,7 @@ import {
 } from 'os/store'
 import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
 import { net } from 'shared/runtime'
+import { Fragment } from 'react'
 
 type NavButtonProps = {
   id: string
@@ -74,7 +75,28 @@ const Header = () => {
         />
       </Col>
       <Col flex="auto">
-        <ContextMenu />
+        {account.isAddress(walletAddress) && (
+          <Space align="center" size={0}>
+            <NavButton
+              id="swap-nav-button"
+              iconName="git-compare-outline"
+              onClick={() => history.push('/app/sen_swap')}
+              title="Swap"
+            />
+            <NavButton
+              id="liquidity-nav-button"
+              iconName="bar-chart-outline"
+              onClick={() => history.push('/app/sen_lp')}
+              title="Liquidity"
+            />
+            <NavButton
+              id="farm-nav-button"
+              iconName="leaf-outline"
+              onClick={() => history.push('/app/sen_farming')}
+              title="Farm"
+            />
+          </Space>
+        )}
       </Col>
       <Col>
         <Space align="center">
