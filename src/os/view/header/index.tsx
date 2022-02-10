@@ -51,12 +51,12 @@ const Header = () => {
         {account.isAddress(walletAddress) && (
           <Space align="center" size={12}>
             <NavButton
-              iconName="git-compare-outline"
+              iconName="swap-horizontal-outline"
               onClick={() => history.push('/app/sen_swap')}
               title="Swap"
             />
             <NavButton
-              iconName="bar-chart-outline"
+              iconName="albums-outline"
               onClick={() => history.push('/app/sen_lp')}
               title="Liquidity"
             />
