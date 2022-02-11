@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { Switch } from 'antd'
+import { Col, Row, Space, Switch, Typography } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
 import {
@@ -23,13 +23,22 @@ const Theme = () => {
   )
 
   return (
-    <Switch
-      size="small"
-      checkedChildren={<IonIcon name="moon-outline" />}
-      unCheckedChildren={<IonIcon name="sunny-outline" />}
-      checked={theme === 'dark'}
-      onChange={onSwitch}
-    />
+    <Row gutter={[12, 12]}>
+      <Col flex="auto">
+        <Space size={15}>
+          <IonIcon
+            className="action-center-icon "
+            name={theme === 'dark' ? 'moon-outline' : 'sunny-outline'}
+          />
+          <Typography.Text>
+            {theme.charAt(0).toLocaleUpperCase() + theme.slice(1)} theme
+          </Typography.Text>
+        </Space>
+      </Col>
+      <Col>
+        <Switch size="small" checked={theme === 'dark'} onChange={onSwitch} />
+      </Col>
+    </Row>
   )
 }
 

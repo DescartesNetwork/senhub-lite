@@ -1,9 +1,10 @@
 import { useState } from 'react'
 
-import { Row, Col, Tooltip, Typography, Popover } from 'antd'
+import { Row, Col, Tooltip, Typography, Popover, Space } from 'antd'
 import QRCode from 'qrcode.react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import IonIcon from 'shared/antd/ionicon'
+import WalletAvatar from './walletAvatar'
 
 import { useRootSelector, RootState } from 'os/store'
 import { shortenAddress } from 'shared/util'
@@ -42,9 +43,12 @@ const WalletInfo = () => {
   }
 
   return (
-    <Row gutter={[12, 12]} align="middle">
+    <Row gutter={[12, 12]}>
       <Col flex="auto">
-        <Typography.Text>{shortenAddress(address, 6, '...')}</Typography.Text>
+        <Space size={12}>
+          <WalletAvatar />
+          <Typography.Text>{shortenAddress(address, 3, '...')}</Typography.Text>
+        </Space>
       </Col>
       <Col>
         <Tooltip title="Copied" visible={copied}>
