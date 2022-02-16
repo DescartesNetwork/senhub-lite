@@ -59,7 +59,7 @@ const View = () => {
           <Col span={24}>
             <Switch>
               <Route exact path="/welcome" component={Welcome} />
-              <PrivateRoute exact path="/app/:appId" component={Page} />
+              <PrivateRoute path="/app/:appId" component={Page} />
               <Redirect from="*" to="/welcome" />
             </Switch>
           </Col>
