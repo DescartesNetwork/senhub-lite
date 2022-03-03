@@ -30,8 +30,6 @@ const WalletAvatar = () => {
     return walletType.charAt(0).toLowerCase() + walletType.slice(1)
   }, [])
 
-  console.log(wallet)
-
   return wallet === 'secretKey' ? (
     <Avatar size={24}>
       <span style={{ fontSize: 24 }}>{utils.randEmoji(address)}</span>
