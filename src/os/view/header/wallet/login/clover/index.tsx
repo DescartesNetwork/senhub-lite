@@ -1,9 +1,10 @@
 import { Row, Card, Col, Avatar } from 'antd'
 
-import CLOVER from 'os/static/images/wallet/clover.png'
 import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { CloverWallet } from '../../lib'
+
+import CLOVER from 'os/static/images/wallet/clover.png'
 
 const Clover = () => {
   const dispatch = useRootDispatch<RootDispatch>()
