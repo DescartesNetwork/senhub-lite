@@ -10,6 +10,7 @@ import PHANTOM from 'os/static/images/wallet/phantom.png'
 import SLOPE from 'os/static/images/wallet/slope.svg'
 import SOLFLARE from 'os/static/images/wallet/solflare.png'
 import SOLLET from 'os/static/images/wallet/sollet.png'
+import CLOVER from 'os/static/images/wallet/clover.png'
 
 const IMAGES_WALLET: Record<string, string> = {
   coin98: COIN98,
@@ -18,6 +19,7 @@ const IMAGES_WALLET: Record<string, string> = {
   sollet: SOLLET,
   solfareWeb: SOLFLARE,
   solflareExtension: SOLFLARE,
+  clover: CLOVER,
 }
 
 const WalletAvatar = () => {
